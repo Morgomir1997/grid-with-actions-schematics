@@ -1,0 +1,11 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "description": "Creates a new grid-with-actions-schematics workspace",
+    "properties": {
+        "directory": {
+          "x-prompt": "Where should we add the grid?",
+          "type": "string",
+          "description": "The directory name to create the workspace in."
+        }
+    }
+}

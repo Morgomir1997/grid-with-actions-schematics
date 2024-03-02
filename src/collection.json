@@ -3,6 +3,7 @@
   "schematics": {
     "grid-with-actions-schematics": {
       "description": "A blank schematic.",
+      "schema": "./grid-with-actions-schematics/schema.json",
       "factory": "./grid-with-actions-schematics/index#gridWithActionsSchematics"
     }
   }

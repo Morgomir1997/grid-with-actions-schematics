@@ -8,6 +8,8 @@ export function gridWithActionsSchematics(_options: any): Rule {
   console.log('Hello from your new schematic!')
 
   return (tree: Tree, _context: SchematicContext) => {
+    // tree.create(_options.name || 'hello', 'world');
+    tree.create(_options.directory, "testFileContent");
     return tree;
   };
 }
