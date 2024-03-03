@@ -10,22 +10,21 @@ export function gridWithActionsSchematics(_options: any): Rule {
   const sourceFolderPath = './src/grid-with-actions-schematics/source-files';
   const fileExtensions = ['.ts', '.scss', '.html'];
 
-  console.log('Hello from your new schematic!');
-
-  console.log('test', readFilesWithExtensions(sourceFolderPath, fileExtensions));
-
-
-  console.log('Hello from your new schematic!');
-
   return (tree: Tree, _context: SchematicContext) => {
-    // tree.create(_options.name || 'hello', 'world');
-    tree.create(_options.directory, 'fileContents');
+    const files = readFilesWithExtensions(sourceFolderPath, fileExtensions);
+    Object.keys(files).forEach(relativePath => {
+      const fileContent = files[relativePath];
+      const destinationPath = path.join(_options.directory, relativePath);
+      tree.create(destinationPath, fileContent);
+  });
     return tree;
   };
 }
 
-function readFilesWithExtensions(folderPath: string, extensions: string[]): string[] {
-  const files: string[] = [];
+function readFilesWithExtensions(folderPath: string, extensions: string[]): { [relativePath: string]: Buffer } {
+  const files: { [relativePath: string]: Buffer } = {};
+  const initialSourceFolderPath = './src/grid-with-actions-schematics/source-files';
+
   const items = fs.readdirSync(folderPath);
 
   items.forEach(item => {
@@ -34,13 +33,13 @@ function readFilesWithExtensions(folderPath: string, extensions: string[]): stri
 
       if (stat.isDirectory()) {
           // Recursively read files in subfolders
-          files.push(...readFilesWithExtensions(filePath, extensions));
+          Object.assign(files, readFilesWithExtensions(filePath, extensions));
       } else {
           const fileExt = path.extname(filePath).toLowerCase();
           if (extensions.includes(fileExt)) {
-              // Read file content if its extension matches
-              const fileContent = fs.readFileSync(filePath, 'utf-8');
-              files.push(fileContent);
+              // Calculate relative path without the 'src' folder
+              const relativePath = path.relative(initialSourceFolderPath, filePath);
+              files[relativePath] = fs.readFileSync(filePath);
           }
       }
   });
