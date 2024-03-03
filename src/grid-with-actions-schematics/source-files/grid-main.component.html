@@ -1,0 +1,22 @@
+<div>
+  <ag-grid-angular
+    style="width: 100%; height: 400px;"
+    [rowData]="rowData"
+    [columnDefs]="colDefs"
+    [class]="themeClass"
+    [rowSelection]="'multiple'"
+    [animateRows]="true"
+    [modules]="modules"
+    [context]="context"
+    (gridReady)="onGridReady($event)"
+  >
+  </ag-grid-angular>
+  <grid-action-buttons (setBulkAction)="setAction($event)"></grid-action-buttons>
+  <action-execution
+    *ngIf="(isActionSettled | async)"
+    [action]="action.value"
+    [rows]="selectedRows"
+    (actionHasBeenExecuted)="actionDone()"
+  > 
+  </action-execution>
+</div>
