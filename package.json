@@ -20,6 +20,7 @@
     "@ag-grid-community/styles": "^31.0.3",
     "@angular-devkit/core": "^17.2.0",
     "@angular-devkit/schematics": "^17.2.0",
+    "@angular/router": "^17.2.0",
     "typescript": "~5.3.2"
   },
   "devDependencies": {

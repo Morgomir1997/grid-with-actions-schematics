@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-// import { RowType, colDefs, defaultColDef } from './grid-col-def';
-// import { GridActionButtonsComponent } from './grid-action-buttons/grid-action-buttons.component';
+import { RowType, colDefs, defaultColDef } from './grid-col-def';
+import { GridActionButtonsComponent } from './grid-action-buttons/grid-action-buttons.component';
 import { BehaviorSubject, Observable } from 'rxjs';
-// import { ActionExecutionComponent } from './action-execution/action-execution.component';
-// import { ColDef, GridApi, GridReadyEvent, Module } from '@ag-grid-community/core';
-import { GridReadyEvent, Module } from '@ag-grid-community/core';
+import { ActionExecutionComponent } from './action-execution/action-execution.component';
+import { ColDef, GridApi, GridReadyEvent, Module } from '@ag-grid-community/core';
 import { AgGridModule } from '@ag-grid-community/angular';
 import { CommonModule } from '@angular/common';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
@@ -12,7 +11,7 @@ import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-mod
 @Component({
   selector: 'grid-main',
   standalone: true,
-  imports: [AgGridModule, CommonModule ],
+  imports: [AgGridModule, GridActionButtonsComponent, ActionExecutionComponent, CommonModule ],
   templateUrl: './grid-main.component.html',
   styleUrls: ['./grid-main.component.scss']
 })
@@ -22,8 +21,7 @@ export class GridMainComponent {
   public modules: Module[] = [ClientSideRowModelModule];
   public context: this;
 
-  // private gridApi!: GridApi;
-  private gridApi!: any;
+  private gridApi!: GridApi;
 
   public rowData = [
     { make: "Tesla", model: "Model Y", price: 64950, electric: true },
@@ -31,8 +29,8 @@ export class GridMainComponent {
     { make: "Toyota", model: "Corolla", price: 29600, electric: false },
   ];
 
-  // public colDefs: ColDef[] = colDefs;
-  // public defaultColDef: ColDef = defaultColDef;
+  public colDefs: ColDef[] = colDefs;
+  public defaultColDef: ColDef = defaultColDef;
 
   constructor() {
     this.context = this;
@@ -40,7 +38,6 @@ export class GridMainComponent {
 
   public onGridReady(event: GridReadyEvent) {
     this.gridApi = event.api;
-    console.log(this.gridApi);
   }
 
   public setAction(action: string|null): void {
@@ -55,7 +52,7 @@ export class GridMainComponent {
     return this.action.asObservable();
   }
 
-  // public get selectedRows(): RowType[]|null {
-  //   return this.gridApi.getSelectedRows();
-  // }
+  public get selectedRows(): RowType[]|null {
+    return this.gridApi.getSelectedRows();
+  }
 }

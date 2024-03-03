@@ -17,7 +17,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6",
-    "outDir": "dist/grid-with-actions",
+    // "outDir": "dist/grid-with-actions",
     "types": ["jasmine", "node"]
   },
   "include": ["src/**/*"],

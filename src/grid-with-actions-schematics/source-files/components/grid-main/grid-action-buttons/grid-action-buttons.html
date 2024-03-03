@@ -1,0 +1,5 @@
+<div>
+  <button *ngFor="let action of (actionTitle | keyvalue)" value="{{action.key}}" (click)="setAction(action.key)">
+    {{action.value}}
+  </button>
+</div>

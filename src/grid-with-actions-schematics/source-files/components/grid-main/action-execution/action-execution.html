@@ -1,0 +1,7 @@
+<div>
+  <h1>Selected action: {{this.action}}</h1>
+  <h2>Selected rows:</h2>
+  <p>{{this.rows | json}}</p>
+</div>
+
+<button (click)="this.actionDoneHandler()">Action Done. Close it</button>
