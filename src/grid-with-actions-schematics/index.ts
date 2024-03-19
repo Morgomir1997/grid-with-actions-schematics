@@ -36,7 +36,8 @@ function readFilesWithExtensions(folderPath: string, extensions: string[]): { [r
           Object.assign(files, readFilesWithExtensions(filePath, extensions));
       } else {
           const fileExt = path.extname(filePath).toLowerCase();
-          if (extensions.includes(fileExt)) {
+          const fileName = path.basename(filePath);
+          if (extensions.includes(fileExt) && !fileName.endsWith('.d.ts')) {
               // Calculate relative path without the 'src' folder
               const relativePath = path.relative(initialSourceFolderPath, filePath);
               files[relativePath] = fs.readFileSync(filePath);
